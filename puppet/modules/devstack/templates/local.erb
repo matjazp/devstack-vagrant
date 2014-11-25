@@ -1,5 +1,51 @@
 [[local|localrc]]
 
+# disable nova-network
+disable_service n-net
+# quantum neutron
+enable_service q-svc q-agt q-dhcp q-l3 q-meta quantum
+Q_ALLOW_OVERLAPPING_IP=True
+
+# quantum LBaaS
+enable_service q-lbaas
+# quantum FWaaS
+#enable_service q-fwaas
+# quantum VPNaaS
+#enable_service q-vpn
+
+# Optional, to disable tempest configuration as part of devstack
+# disable_service tempest
+
+# heat
+enable_service heat h-api h-api-cfn h-api-cw h-eng
+
+# swift
+#enable_service s-proxy s-object s-container s-account
+#SWIFT_HASH=66a3d6b56c1f479c8b4e70ab5c2000f5
+#SWIFT_REPLICAS=1  #stevilo kopij podatkov v swiftu, po defaultu je 1, nastavi na 3 za produkcijo in teste
+# ce potrebujemo vec prostora za image, default je 1GB
+#SWIFT_LOOPBACK_DISK_SIZE=120G
+#SWIFT_DATA_DIR=/mnt/disk1
+
+
+# NUJNO za neutron!
+#PUBLIC_NETWORK_GATEWAY=88.200.23.129
+
+# SPREMENI NA PRAVI IP
+#HOST_IP=88.200.24.205
+#FLOATING_RANGE=88.200.23.128/25
+
+# cinder size
+#VOLUME_BACKING_FILE_SIZE=30G
+
+#Q_PLUGIN=openvswitch
+#Q_ALLOW_OVERLAPPING_IP=True
+#Q_ROUTER_NAME=lrkrouter
+
+#ENABLE_TENANT_TUNNELS=True
+#TENANT_TUNNEL_RANGES=300:900
+
+
 # generic configuration parameters
 
 DATABASE_PASSWORD=<%= @service_password %>
@@ -45,15 +91,15 @@ enable_service ceilometer-acompute
 # configure images provided on glance (manager)
 
 IMAGE_URLS="http://download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-uec.tar.gz"
-IMAGE_URLS+=",https://cloud-images.ubuntu.com/precise/current/precise-server-cloudimg-amd64-disk1.img"
-IMAGE_URLS+=",https://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-disk1.img"
+#IMAGE_URLS+=",https://cloud-images.ubuntu.com/precise/current/precise-server-cloudimg-amd64-disk1.img"
+#IMAGE_URLS+=",https://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-amd64-disk1.img"
 
 # configure ceilometer (manager)
 
-enable_service dstat
-enable_service ceilometer-acompute ceilometer-acentral ceilometer-anotification ceilometer-collector ceilometer-api
-enable_service ceilometer-alarm-notifier ceilometer-alarm-evaluator
-CEILOMETER_BACKEND=mongodb
+#enable_service dstat
+#enable_service ceilometer-acompute ceilometer-acentral ceilometer-anotification ceilometer-collector ceilometer-api
+#enable_service ceilometer-alarm-notifier ceilometer-alarm-evaluator
+#CEILOMETER_BACKEND=mongodb
 
 <% if @use_ldap == "true" %>
 # LDAP configuration parameters (manager)

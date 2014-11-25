@@ -34,6 +34,11 @@ def configure_vm(name, vm, conf)
   end
 
   vm.provider :virtualbox do |vb|
+    
+    # Use VBoxManage to customize the VM. For example to change memory:
+    vb.customize ["modifyvm", :id, "--memory", "4096"]
+    vb.customize ["modifyvm", :id, "--cpus", "2"]
+    
     # you need this for openstack guests to talk to each other
     vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
     # if specified assign a static MAC address
@@ -47,7 +52,7 @@ def configure_vm(name, vm, conf)
     puppet.manifests_path = "puppet/manifests"
     puppet.module_path = "puppet/modules"
     puppet.manifest_file = "default.pp"
-    puppet.options = "--verbose --debug"
+    #puppet.options = "--verbose --debug"
     ## custom facts provided to Puppet
     puppet.facter = {
       ## tells default.pp that we're running in Vagrant
