@@ -16,6 +16,10 @@ that once you bring up this environment you will be able to ssh
 stack@api (or whatever your hostname is) from any machines on your
 network.
 
+Bridged L2 network diagram
+![bridged L2 network diagram](https://dague.net/wp-content/uploads/2014/04/DevstackVagrant-1024x791.png "network diagram")
+
+
 Vagrant Setup
 ------------------------
 
